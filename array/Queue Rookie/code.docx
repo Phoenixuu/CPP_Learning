@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+void swap(int &x, int &y){
+    int temp=x;
+    x=y;
+    y=temp;
+}
+
+int T,N;
+int value[10000];
+int index[10000];
+
+int main() {
+	cin >> T;
+	for (int tc=1;tc<=T;tc++ ){
+	    cin>>N;
+	    for (int i=0;i<N;i++){
+	        cin>>value[i];
+	    }
+	    for (int i=0;i<N;i++){
+	        cin>>index[i];
+	    }
+	    for (int i=0;i<N;i++){
+	        for (int j=i+1;j<N;j++){
+	            if (value[i] > value[j]) {
+	                swap(value[i], value[j]);
+	                swap(index[i], index[j]);
+	            }
+	        }
+	    }
+	    int arr[10000] = {0};
+	    
+	    for (int i=0;i<N;i++){
+	        for (int j=0;j<N;j++){
+	            if((index[i] == 0)&&(arr[j]==0)) {
+	                arr[j]= value[i];
+	                break;
+	            } 
+	            if ((index[i]>0)&&(arr[j]==0)) 
+	                index[i]--;
+	        } 
+	    }
+	    // output
+	    for (int i=0;i<N;i++){
+	        cout<< arr[i]<<" ";
+	    }
+	    cout<<endl;
+	}
+	return 0;
+}

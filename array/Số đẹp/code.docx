@@ -1,0 +1,33 @@
+#include <iostream>
+#include<string>
+using namespace std;
+
+int main() {
+	int T; cin >> T;
+	for(int tc = 1; tc <= T; tc++){
+		int n,m;
+		cin >> n >> m;
+		int sodep[10] = {0};
+		for(int i = 0; i < n; i++){
+			int a; cin >> a;
+			sodep[a] = 1;
+		}
+		int x, y; cin >> x >> y;
+		int kq = 0;
+		for(int i = x; i <= y; i++){
+			string s = to_string(i);
+			int dem = 0;
+			for(int j = 0; j < s.size(); j++){
+				int a = s[j] - '0';
+				if(sodep[a] == 1){
+					dem++;
+				}
+			}
+			if(dem >= m){
+				kq++;
+			}
+		}
+		cout << "#" << tc << " " << kq << endl;
+	}
+	return 0;
+}

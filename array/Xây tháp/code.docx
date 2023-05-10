@@ -1,0 +1,53 @@
+#include<iostream>
+using namespace std;
+
+void swap(int &x, int &y){
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+int main(){
+    int T; cin >> T;
+    for(int tc = 0; tc < T; tc++){
+        int N, a, b;
+        cin >> N >> a >> b;
+        int gach[1000];
+        for(int i = 0; i < N; i++){
+            cin >> gach[i];
+        }
+        for(int i = 0; i < N; i++){
+            for(int j = i+1; j < N; j++){
+                if(gach[j] > gach[i]){
+                    swap(gach[j],gach[i]);
+                }
+            }
+        }
+        
+        int arr[1000] = {0}; int count = 1;
+        for(int i = 0; i < a; i++){
+            arr[i] = count;
+            count++;
+        } 
+        int dem = 1;
+        for(int i = a; i < a + b; i++){
+            arr[i] = dem;
+            dem++;
+        }
+        
+        for(int i = 0; i < N; i++){
+            for(int j = i+1; j < N; j++){
+                if(arr[j] < arr[i]){
+                    swap(arr[j],arr[i]);
+                }
+            }
+        }
+        int tong = 0;
+        for(int i = 0; i < N; i++) {
+            tong += arr[i] * gach[i];
+        }
+        cout << "#" << (tc+1) << " " << tong << endl;
+    }
+    
+    return 0;
+}

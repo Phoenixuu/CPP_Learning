@@ -1,0 +1,102 @@
+#include <cmath>
+#include <iostream>
+using namespace std;
+
+#define ROW 100
+#define COL 100
+
+struct Node {
+  char type;
+  int x;
+  int y;
+  bool isCover = false;
+};
+
+int solution(int M, int N, char map[][COL]) {
+  Node ho_dan[M * N];
+  Node tram_phat_song[M * N];
+  int count = 0;
+  int h = 0, d = 0;
+
+  for (int i = 0; i < M; i++) {
+    for (int j = 0; j < N; j++) {
+      if (map[i][j] == 'H') {
+        ho_dan[h].type = map[i][j];
+        ho_dan[h].x = i;
+        ho_dan[h].y = j;
+        h++;
+      }
+      if (map[i][j] == 'A' || map[i][j] == 'B' || map[i][j] == 'C') {
+        tram_phat_song[d].type = map[i][j];
+        tram_phat_song[d].x = i;
+        tram_phat_song[d].y = j;
+        d++;
+      }
+    }
+  }
+
+  if (h == 0)
+    return 0;
+  for (int i = 0; i < d; i++) {
+    if (tram_phat_song[i].type == 'A') {
+      for (int j = 0; j < h; j++) {
+        if (ho_dan[j].x == tram_phat_song[i].x && fabs(ho_dan[j].y - tram_phat_song[i].y) <= 1) {
+          ho_dan[j].isCover = true;
+        }
+
+        if (ho_dan[j].y == tram_phat_song[i].y && fabs(ho_dan[j].x - tram_phat_song[i].x) <= 1) {
+          ho_dan[j].isCover = true;
+        }
+      }
+    }
+
+    if (tram_phat_song[i].type == 'B') {
+      for (int j = 0; j < h; j++) {
+        if (ho_dan[j].x == tram_phat_song[i].x && fabs(ho_dan[j].y - tram_phat_song[i].y) <= 2) {
+          ho_dan[j].isCover = true;
+        }
+
+        if (ho_dan[j].y == tram_phat_song[i].y && fabs(ho_dan[j].x - tram_phat_song[i].x) <= 2) {
+          ho_dan[j].isCover = true;
+        }
+      }
+    }
+
+    if (tram_phat_song[i].type == 'C') {
+      for (int j = 0; j < h; j++) {
+        if (ho_dan[j].x == tram_phat_song[i].x && fabs(ho_dan[j].y - tram_phat_song[i].y) <= 3) {
+          ho_dan[j].isCover = true;
+        }
+
+        if (ho_dan[j].y == tram_phat_song[i].y && fabs(ho_dan[j].x - tram_phat_song[i].x) <= 3) {
+          ho_dan[j].isCover = true;
+        }
+      }
+    }    
+  }	for (int i = 0; i < h; i++) {
+		if (ho_dan[i].isCover == false) {
+			count++;
+		}
+	}
+
+  return count;
+}
+
+int main() {
+  freopen("input.txt","r",stdin);
+  int T;
+  cin >> T;
+  for (int i = 0; i < T; i++) {
+    char map[ROW][COL];
+    int M, N;
+    cin >> M >> N;
+    for (int j = 0; j < M; j++) {
+      for (int k = 0; k < N; k++) {
+        cin >> map[j][k];
+      }
+    }
+
+    cout << "#" << i+1 << " " << solution(M, N, map) << endl;
+  } 
+  return 0;
+}

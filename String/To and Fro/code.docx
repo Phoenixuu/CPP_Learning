@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+#include<cmath>
+
+int main() {
+	while (true){
+		int n; cin >> n;
+		if(n == 0){
+			return 0;
+		}
+		fflush(stdin);
+		string str; cin >> str;
+		int length = str.length();
+		int so_hang = length/n;  
+		int dem = 0;
+		string arr[200][200];
+		for(int x = 0; x < so_hang; x++){
+			if(x % 2 == 0) {
+				for(int y = 0; y < n; y++){
+					arr[x][y] = str[dem++];
+				}
+			} else {
+				for(int y = (n-1); y >= 0 ; y--){
+					arr[x][y] = str[dem++];
+				}
+			}
+		}
+		for(int x = 0; x < n; x++){
+			for(int y = 0; y < so_hang; y++){
+				cout << arr[y][x];
+			}
+		} 
+		cout << endl;
+	} 
+
+	return 0;
+}
